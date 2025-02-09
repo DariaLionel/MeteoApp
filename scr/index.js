@@ -96,32 +96,6 @@ function displayForecast(response) {
   forecastElement.innerHTML = forecastHtml;
 }
 
-async function getForecast(city) {
-  const response = await axios.get(
-    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
-  );
-  let forecastHTML = "";
-  for (let i = 0; i < response.data.list.length; i += 8) {
-    let day = response.data.list[i];
-    forecastHTML += `
-                        <div class="weather-forecast-day">
-                            <div class="weather-forecast-date">${new Date(
-                              day.dt * 1000
-                            ).toLocaleDateString()}</div>
-                            <div class="weather-forecast-icon">🌤️</div>
-                            <div class="weather-forecast-temperatures">
-                                <div class="weather-forecast-temperature"><strong>${Math.round(
-                                  day.main.temp_max
-                                )}º</strong></div>
-                                <div class="weather-forecast-temperature">${Math.round(
-                                  day.main.temp_min
-                                )}º</div>
-                            </div>
-                        </div>`;
-  }
-  document.querySelector("#forecast").innerHTML = forecastHTML;
-}
-
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
